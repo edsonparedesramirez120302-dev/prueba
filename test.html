@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Carta</title>
+
+  <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      margin:0;
+      background:black;
+      font-family:"VT323",monospace;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      overflow:hidden;
+    }
+
+    .paper{
+      background:black;
+      width:90%;
+      max-width:90%;
+      height:80vh;
+      padding:40px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.15);
+      border-radius:8px;
+      font-size:22px;
+      line-height:1.4;
+      white-space:pre-wrap;
+      overflow-y:auto;
+      color: white;
+      text-align: justify;
+      font-size: 35px;
+    }
+
+    #output{
+      margin-top:0;          /* asegurar que no haya margen */
+      padding-top:0;         /* asegurar que no haya padding extra */
+    }
+
+    .cursor{
+      display:inline-block;
+      animation: blink 1s steps(2, start) infinite;
+    }
+    @keyframes blink{
+      50%{opacity:0;}
+    }
+
+    #source{display:none;}
+  </style>
+</head>
+<body>
+  <div class="paper" id="paper">
+
+    <!-- Nada de saltos antes ni después -->
+    <pre id="source">Hola Mafer! Nunca en mi vida había regalado flores y se que no es el mejor momento pero no quería terminar todo esto sin darte este presente porque siempre veía en tus compartidos de tiktok o en tus close friends que te gustaría que te den arreglos (no se si te los hayan dado alguna vez) pero quería quitarme las ganas después de imaginarlo por mucho tiempo, ahora que ya sabes lo que siento.
+
+Espero que te haya ido genial en el debate y que hayas devorado con todo porque estoy seguro que, independientemente del resultado, siempre das lo mejor de ti, sin importar las circunstancias. DISCLAIMER IMPORTANTE, mi primera idea fue darte las rosas en PUCPMUN pero tenía mucho miedo que pueda afectar en tu rendimiento y por eso lo estoy haciendo de la forma en la que lo recogiste.
+
+Estoy escribiendo esto el sábado a la 1:45 am y sinceramente no se si lo vaya a hacer o si lo vayas a leer en algún momento pero solo quiero que sepas que no quiero comprometerte con esto. Yo se que no me crees que puedo entender la decisión que tomaste, pero créeme que sí. Me hubiese gustado intentarlo un poco más de tiempo y así poder ayudarte en lo que esté al alcance de mis manos, yo se que es complicado, pero genuinamente creo que el domingo si pasó, si te pudiste abrir y yo pude expresar mucho mejor mis sentimientos después de saber tu respuesta y creí que era cuestión de tiempo para que podemos conocernos muchísimo más y así sanar juntos porque yo también tengo muchas inseguridades con esto y es por eso que me demoré 3 años en poder llegar a este punto.
+
+Creo que nos hemos dicho gran parte de las cosas en persona; por lo que, estoy tranquilo por ese lado. Sin embargo, no quería terminar este mensaje sin aclarar que no espero un mensaje o gesto de vuelta, lo hago desde el fondo de mi corazón y con la más buena intención de sacarte al menos una sonrisa cuando lo veas o un momento de felicidad porque ya se que no debes estar pasando por el mejor momento. Yo se que en la llamada me dijiste que no piense un tal vez, pero sigo pensando que ojalá el destino nos de otra oportunidad, no se si de acá una semana, un mes, un año o tres, pero si tener la posibilidad de intentarlo de verdad. Por eso, prometo ya no hacerte este tipo de sorpresas para darte tu tiempo de trabajar en esas cosillas que aún no logras resolver. 
+
+Creo que no te lo dije, pero gracias por la confianza en contarme todo lo que me contaste, por abrirte conmigo y por hacerme pasar, genuinamente, el mejor domingo de mi año porque poder estar los dos solos hablando, ya sabiendo TODO, ha sido un sueño cumplido.
+
+Ojalá poder verte pronto y que el destino nos junte nuevamente ❤.</pre>
+
+    <div id="output"></div>
+    <span class="cursor" id="cursor">|</span>
+  </div>
+
+  <script>
+    const SPEED = 25;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // trim para borrar saltos ocultos
+      const text = document.getElementById("source").textContent.trim();
+      const out = document.getElementById("output");
+      const cursor = document.getElementById("cursor");
+      const paper = document.getElementById("paper");
+      let i = 0;
+
+      function step(){
+        if(i >= text.length) return;
+
+        const ch = text[i];
+        out.innerHTML += (ch === "\n") ? "<br>" : ch;
+        i++;
+
+        // auto-scroll
+        paper.scrollTop = paper.scrollHeight;
+
+        setTimeout(step, SPEED);
+      }
+
+      step();
+    });
+  </script>
+</body>
+</html>
